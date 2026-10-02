@@ -22,6 +22,8 @@ function calcularDesconto(subtotal, codigo) {
     return subtotal * 0.10;
   }
 
+  // correção erro 1:
+  // if (codigo === "SENAI20" && subtotal >= 500) {
   if (codigo === "SENAI20" && subtotal >= 1000) {
     return subtotal * 0.20;
   }
@@ -38,6 +40,8 @@ function calcularFrete(tipo, subtotal) {
     return 60;
   }
 
+  // correção erro 2:
+  // if (subtotal > 500) {
   if (subtotal >= 500) {
     return 0;
   }
@@ -50,11 +54,15 @@ function finalizarPedido() {
   const qtd = Number(quantidade.value);
   const codigo = cupom.value.trim().toUpperCase();
 
+  // correção erro 3:
+  // if (qtd <= 0) {
   if (qtd < 0) {
     resultado.innerHTML = "<p>Quantidade inválida.</p>";
     return;
   }
 
+  // correção erro 4:
+  // if (qtd > estoque[produtoSelecionado]) {
   if (qtd >= estoque[produtoSelecionado]) {
     resultado.innerHTML = "<p>Quantidade indisponível em estoque.</p>";
     return;
@@ -66,16 +74,24 @@ function finalizarPedido() {
 
   let total = subtotal - desconto + valorFrete;
 
+  // correção erro 5:
+  // if (qtd > 5) {
+  //   total = total * 0.95;
+  // }
   if (qtd > 5) {
     total = total - subtotal * 0.05;
   }
 
+  //  6:
+  // if (total >= 3000) {
   if (total > 3000) {
     total = total * 0.95;
   }
 
   let mensagem = "Pedido calculado com sucesso.";
 
+  // CORREÇÃO ERRO 7:
+  // } else if (subtotal >= 3000) {
   if (total <= 0) {
     mensagem = "Valor do pedido inválido.";
   } else if (total >= 3000) {
